@@ -23,7 +23,7 @@ export default function AnalysisDetailsPage() {
       {item ? (
         <AnalysisResultCard result={item} />
       ) : (
-        <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 text-sm text-slate-300">
+        <div className="premium-card rounded-2xl p-5 text-sm text-slate-300">
           Analise nao encontrada no armazenamento local.{" "}
           <Link href="/history" className="text-cyan-300 hover:underline">
             Voltar ao historico

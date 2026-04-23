@@ -33,15 +33,18 @@ export default function AnalyzePage() {
               {savedId ? (
                 <Link
                   href={`/analysis/${savedId}`}
-                  className="inline-flex rounded-md border border-cyan-500/40 px-3 py-2 text-sm text-cyan-200 hover:bg-cyan-500/10"
+                  className="inline-flex rounded-lg border border-cyan-500/40 px-3 py-2 text-sm text-cyan-100 transition hover:bg-cyan-500/10"
                 >
                   Abrir detalhes desta analise
                 </Link>
               ) : null}
             </>
           ) : (
-            <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 text-sm text-slate-300">
-              A resposta da API aparecera aqui apos o envio do formulario.
+            <div className="premium-card rounded-2xl p-6 text-sm text-slate-300">
+              <p className="text-xs uppercase tracking-[0.2em] text-cyan-300/70">Live Response</p>
+              <p className="mt-2">
+                A resposta da API aparecera aqui apos o envio do formulario, com score, motivos e recomendacao.
+              </p>
             </div>
           )}
         </div>

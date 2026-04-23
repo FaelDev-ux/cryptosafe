@@ -52,8 +52,11 @@ export function TransactionForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-slate-800 bg-slate-900 p-5">
-      <h2 className="text-lg font-semibold text-white">Enviar transacao para analise</h2>
+    <form onSubmit={handleSubmit} className="premium-card space-y-5 rounded-2xl p-6">
+      <div>
+        <p className="text-xs uppercase tracking-[0.2em] text-cyan-300/80">Transaction Scanner</p>
+        <h2 className="mt-1 text-xl font-semibold text-white">Enviar transacao para analise</h2>
+      </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <label className="space-y-1 text-sm">
@@ -62,7 +65,7 @@ export function TransactionForm({
             required
             value={formData.contractAddress}
             onChange={(e) => setFormData((prev) => ({ ...prev, contractAddress: e.target.value }))}
-            className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 outline-none focus:border-cyan-400"
+            className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
             placeholder="0x..."
           />
         </label>
@@ -78,7 +81,7 @@ export function TransactionForm({
                 actionType: e.target.value as AnalyzeTransactionInput["actionType"],
               }))
             }
-            className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 outline-none focus:border-cyan-400"
+            className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
           >
             <option value="transfer">transfer</option>
             <option value="approve">approve</option>
@@ -96,7 +99,7 @@ export function TransactionForm({
             step="any"
             value={formData.amount || ""}
             onChange={(e) => setFormData((prev) => ({ ...prev, amount: Number(e.target.value) }))}
-            className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 outline-none focus:border-cyan-400"
+            className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
             placeholder="100"
           />
         </label>
@@ -107,18 +110,18 @@ export function TransactionForm({
             required
             value={formData.tokenName}
             onChange={(e) => setFormData((prev) => ({ ...prev, tokenName: e.target.value }))}
-            className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 outline-none focus:border-cyan-400"
+            className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
             placeholder="USDT"
           />
         </label>
       </div>
 
-      <label className="flex items-center gap-2 text-sm text-slate-300">
+      <label className="flex items-center gap-2 rounded-lg border border-slate-700/70 bg-slate-950/60 px-3 py-2 text-sm text-slate-300">
         <input
           type="checkbox"
           checked={formData.unlimitedApproval}
           onChange={(e) => setFormData((prev) => ({ ...prev, unlimitedApproval: e.target.checked }))}
-          className="h-4 w-4 rounded border-slate-700 bg-slate-950"
+          className="h-4 w-4 rounded border-slate-700 bg-slate-950 accent-cyan-400"
         />
         Unlimited approval
       </label>
@@ -130,7 +133,7 @@ export function TransactionForm({
       <button
         disabled={loading}
         type="submit"
-        className="rounded-md bg-cyan-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:bg-cyan-800"
+        className="glow-cyan w-full rounded-lg bg-gradient-to-r from-cyan-400 via-cyan-300 to-indigo-300 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? "Analisando..." : "Analisar transacao"}
       </button>

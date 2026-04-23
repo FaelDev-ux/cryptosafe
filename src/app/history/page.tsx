@@ -33,17 +33,17 @@ export default function HistoryPage() {
       title="Analysis History"
       description="Busque, filtre e gerencie as analises armazenadas no localStorage."
     >
-      <section className="mb-4 grid gap-3 rounded-xl border border-slate-800 bg-slate-900 p-4 md:grid-cols-[1fr_auto_auto]">
+      <section className="premium-card mb-4 grid gap-3 rounded-2xl p-4 md:grid-cols-[1fr_auto_auto]">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Buscar por contrato, token ou acao"
-          className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-cyan-400"
+          className="w-full rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
         />
         <select
           value={riskFilter}
           onChange={(e) => setRiskFilter(e.target.value as RiskLevel | "ALL")}
-          className="rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-cyan-400"
+          className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
         >
           {riskOptions.map((risk) => (
             <option key={risk} value={risk}>
@@ -56,7 +56,7 @@ export default function HistoryPage() {
             clearHistory();
             setHistory([]);
           }}
-          className="rounded-md border border-rose-500/30 px-3 py-2 text-sm text-rose-200 hover:bg-rose-500/10"
+          className="rounded-lg border border-rose-500/30 px-3 py-2 text-sm text-rose-200 transition hover:bg-rose-500/10"
         >
           Limpar tudo
         </button>

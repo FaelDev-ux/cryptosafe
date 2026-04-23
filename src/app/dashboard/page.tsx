@@ -25,25 +25,25 @@ export default function DashboardPage() {
       description="Visao geral das analises salvas localmente para acompanhamento rapido."
     >
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <article className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+        <article className="premium-card rounded-2xl p-5">
           <p className="text-sm text-slate-300">Total de analises</p>
           <p className="mt-2 text-3xl font-semibold text-white">{metrics.total}</p>
         </article>
-        <article className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+        <article className="premium-card rounded-2xl p-5">
           <p className="text-sm text-slate-300">Casos CRITICAL</p>
           <p className="mt-2 text-3xl font-semibold text-rose-300">{metrics.critical}</p>
         </article>
-        <article className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+        <article className="premium-card rounded-2xl p-5">
           <p className="text-sm text-slate-300">Casos HIGH</p>
           <p className="mt-2 text-3xl font-semibold text-orange-300">{metrics.high}</p>
         </article>
-        <article className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+        <article className="premium-card rounded-2xl p-5">
           <p className="text-sm text-slate-300">Score medio</p>
           <p className="mt-2 text-3xl font-semibold text-cyan-300">{metrics.avgScore}</p>
         </article>
       </section>
 
-      <section className="mt-6 rounded-xl border border-slate-800 bg-slate-900 p-5 text-sm text-slate-300">
+      <section className="premium-card mt-6 rounded-2xl p-5 text-sm text-slate-300">
         {metrics.total === 0 ? (
           <>
             Ainda nao ha analises no historico.{" "}

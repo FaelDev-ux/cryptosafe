@@ -23,11 +23,17 @@ export function AppShell({
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <header className="border-b border-slate-800/80 bg-slate-900/70 backdrop-blur">
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-100">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="soft-grid absolute inset-0 opacity-30" />
+        <div className="absolute left-[-120px] top-[-120px] h-72 w-72 rounded-full bg-cyan-500/20 blur-3xl" />
+        <div className="absolute bottom-[-120px] right-[-120px] h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl" />
+      </div>
+
+      <header className="sticky top-0 z-20 border-b border-slate-800/70 bg-slate-950/70 backdrop-blur-xl">
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4">
-          <Link href="/" className="text-lg font-semibold tracking-wide text-cyan-300">
-            CryptoSafe
+          <Link href="/" className="text-lg font-bold tracking-wide text-cyan-300">
+            Crypto<span className="text-white">Safe</span>
           </Link>
           <nav className="flex flex-wrap gap-2 text-sm">
             {links.map((link) => {
@@ -36,7 +42,11 @@ export function AppShell({
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`rounded-md px-3 py-1.5 transition ${active ? "bg-cyan-500/20 text-cyan-200" : "text-slate-300 hover:bg-slate-800 hover:text-white"}`}
+                  className={`rounded-lg px-3 py-1.5 transition-all duration-200 ${
+                    active
+                      ? "glow-cyan bg-cyan-500/20 text-cyan-100"
+                      : "text-slate-300 hover:bg-slate-800/80 hover:text-white"
+                  }`}
                 >
                   {link.label}
                 </Link>
@@ -46,10 +56,13 @@ export function AppShell({
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl px-4 py-8">
-        <section className="mb-8 rounded-xl border border-slate-800 bg-slate-900/60 p-6">
-          <h1 className="text-2xl font-semibold text-white">{title}</h1>
-          <p className="mt-2 text-sm text-slate-300">{description}</p>
+      <main className="relative z-10 mx-auto w-full max-w-6xl px-4 py-8">
+        <section className="premium-card mb-8 rounded-2xl p-6 md:p-8">
+          <div className="inline-flex items-center rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-200">
+            Secure Crypto Intelligence
+          </div>
+          <h1 className="mt-4 text-3xl font-bold tracking-tight text-white md:text-4xl">{title}</h1>
+          <p className="mt-3 max-w-3xl text-sm text-slate-300 md:text-base">{description}</p>
         </section>
         {children}
       </main>

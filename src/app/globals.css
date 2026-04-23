@@ -16,4 +16,36 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+* {
+  border-color: rgb(51 65 85 / 0.45);
+}
+
+.soft-grid {
+  background-image:
+    linear-gradient(rgb(15 23 42 / 0.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(15 23 42 / 0.55) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.premium-card {
+  background: linear-gradient(180deg, rgb(15 23 42 / 0.76), rgb(2 6 23 / 0.76));
+  border: 1px solid rgb(51 65 85 / 0.5);
+  box-shadow:
+    0 0 0 1px rgb(148 163 184 / 0.06) inset,
+    0 18px 42px rgb(2 6 23 / 0.55);
+  backdrop-filter: blur(10px);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 0 1px rgb(34 211 238 / 0.25) inset, 0 0 36px rgb(34 211 238 / 0.2);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #67e8f9, #22d3ee, #818cf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
