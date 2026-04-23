@@ -3,7 +3,13 @@
 import { useMemo, useState } from "react";
 import { AppShell } from "@/components/app-shell";
 import { HistoryList } from "@/components/history-list";
-import { clearHistory, deleteHistoryItem, getHistory } from "@/lib/history";
+import {
+  clearHistory,
+  deleteHistoryItem,
+  exportHistoryAsCsv,
+  exportHistoryAsJson,
+  getHistory,
+} from "@/lib/history";
 import { RiskLevel } from "@/types/analysis";
 
 const riskOptions: Array<RiskLevel | "ALL"> = ["ALL", "LOW", "MEDIUM", "HIGH", "CRITICAL"];
@@ -12,6 +18,16 @@ export default function HistoryPage() {
   const [history, setHistory] = useState<ReturnType<typeof getHistory>>(() => getHistory());
   const [search, setSearch] = useState("");
   const [riskFilter, setRiskFilter] = useState<RiskLevel | "ALL">("ALL");
+
+  function triggerDownload(filename: string, content: string, contentType: string) {
+    const blob = new Blob([content], { type: contentType });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = filename;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  }
 
   const filtered = useMemo(
     () =>
@@ -33,7 +49,7 @@ export default function HistoryPage() {
       title="Analysis History"
       description="Busque, filtre e gerencie as analises armazenadas no localStorage."
     >
-      <section className="premium-card mb-4 grid gap-3 rounded-2xl p-4 md:grid-cols-[1fr_auto_auto]">
+      <section className="premium-card mb-4 grid gap-3 rounded-2xl p-4 md:grid-cols-[1fr_auto_auto_auto_auto]">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -59,6 +75,30 @@ export default function HistoryPage() {
           className="rounded-lg border border-rose-500/30 px-3 py-2 text-sm text-rose-200 transition hover:bg-rose-500/10"
         >
           Limpar tudo
+        </button>
+        <button
+          onClick={() =>
+            triggerDownload(
+              "cryptosafe-history.json",
+              exportHistoryAsJson(filtered),
+              "application/json;charset=utf-8",
+            )
+          }
+          className="rounded-lg border border-cyan-500/30 px-3 py-2 text-sm text-cyan-200 transition hover:bg-cyan-500/10"
+        >
+          Exportar JSON
+        </button>
+        <button
+          onClick={() =>
+            triggerDownload(
+              "cryptosafe-history.csv",
+              exportHistoryAsCsv(filtered),
+              "text/csv;charset=utf-8",
+            )
+          }
+          className="rounded-lg border border-indigo-500/30 px-3 py-2 text-sm text-indigo-200 transition hover:bg-indigo-500/10"
+        >
+          Exportar CSV
         </button>
       </section>
 

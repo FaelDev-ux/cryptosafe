@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = analyzeTransaction(validation.data);
+    const result = await analyzeTransaction(validation.data);
     return NextResponse.json(result, { status: 200 });
   } catch {
     return NextResponse.json(

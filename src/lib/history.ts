@@ -43,3 +43,35 @@ export function clearHistory(): void {
   if (!isClient()) return;
   window.localStorage.removeItem(STORAGE_KEY);
 }
+
+export function exportHistoryAsJson(items: AnalysisHistoryItem[]): string {
+  return JSON.stringify(items, null, 2);
+}
+
+export function exportHistoryAsCsv(items: AnalysisHistoryItem[]): string {
+  const headers = [
+    "id",
+    "createdAt",
+    "riskLevel",
+    "riskScore",
+    "actionType",
+    "tokenName",
+    "amount",
+    "contractAddress",
+    "unlimitedApproval",
+    "recommendation",
+  ];
+  const rows = items.map((item) => [
+    item.id,
+    item.createdAt,
+    item.riskLevel,
+    item.riskScore.toString(),
+    item.submittedData.actionType,
+    item.submittedData.tokenName,
+    item.submittedData.amount.toString(),
+    item.submittedData.contractAddress,
+    item.submittedData.unlimitedApproval ? "true" : "false",
+    item.recommendation.replaceAll('"', "'"),
+  ]);
+  return [headers.join(","), ...rows.map((row) => row.join(","))].join("\n");
+}

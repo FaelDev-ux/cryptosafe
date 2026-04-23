@@ -14,8 +14,24 @@ export interface AnalyzeTransactionResponse {
   riskLevel: RiskLevel;
   riskScore: number;
   reasons: string[];
+  technicalDetails: RiskFactorDetail[];
+  onChainSignals: OnChainSignals;
   recommendation: string;
   submittedData: AnalyzeTransactionInput;
+}
+
+export interface RiskFactorDetail {
+  label: string;
+  weight: number;
+  applied: boolean;
+  description: string;
+}
+
+export interface OnChainSignals {
+  contractDeployed: boolean | null;
+  dexPairCount: number | null;
+  totalLiquidityUsd: number | null;
+  sources: string[];
 }
 
 export interface AnalysisHistoryItem extends AnalyzeTransactionResponse {

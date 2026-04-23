@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
 const links = [
   { href: "/", label: "Home" },
+  { href: "/login", label: "Login" },
+  { href: "/register", label: "Cadastro" },
   { href: "/dashboard", label: "Dashboard" },
   { href: "/analyze", label: "Analyze" },
   { href: "/history", label: "History" },
@@ -21,6 +23,7 @@ export function AppShell({
   children: ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-100">
@@ -35,7 +38,7 @@ export function AppShell({
           <Link href="/" className="text-lg font-bold tracking-wide text-cyan-300">
             Crypto<span className="text-white">Safe</span>
           </Link>
-          <nav className="flex flex-wrap gap-2 text-sm">
+          <nav className="flex flex-wrap items-center gap-2 text-sm">
             {links.map((link) => {
               const active = pathname === link.href;
               return (
@@ -52,6 +55,16 @@ export function AppShell({
                 </Link>
               );
             })}
+            <button
+              onClick={async () => {
+                await fetch("/api/auth/logout", { method: "POST" });
+                router.push("/login");
+                router.refresh();
+              }}
+              className="rounded-lg border border-slate-700 px-3 py-1.5 text-slate-300 transition hover:bg-slate-800/80 hover:text-white"
+            >
+              Logout
+            </button>
           </nav>
         </div>
       </header>

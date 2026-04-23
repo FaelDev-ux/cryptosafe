@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { analyzeTransaction, validateAnalysisInput } from "@/lib/risk-analysis";
 import { AnalyzeTransactionInput } from "@/types/analysis";
 
@@ -35,8 +35,43 @@ describe("validateAnalysisInput", () => {
 });
 
 describe("analyzeTransaction", () => {
-  it("marca como CRITICAL approve ilimitado em contrato desconhecido", () => {
-    const result = analyzeTransaction(
+  beforeEach(() => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (input: string | URL | Request) => {
+        const url = String(input);
+        if (url.includes("cloudflare-eth.com")) {
+          return new Response(JSON.stringify({ result: "0x60006000" }), { status: 200 });
+        }
+        if (url.includes("dexscreener")) {
+          return new Response(
+            JSON.stringify({
+              pairs: [{ liquidity: { usd: 1200000 } }],
+            }),
+            { status: 200 },
+          );
+        }
+        return new Response("{}", { status: 200 });
+      }),
+    );
+  });
+
+  it("marca como CRITICAL approve ilimitado em contrato desconhecido", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (input: string | URL | Request) => {
+        const url = String(input);
+        if (url.includes("cloudflare-eth.com")) {
+          return new Response(JSON.stringify({ result: "0x" }), { status: 200 });
+        }
+        if (url.includes("dexscreener")) {
+          return new Response(JSON.stringify({ pairs: [] }), { status: 200 });
+        }
+        return new Response("{}", { status: 200 });
+      }),
+    );
+
+    const result = await analyzeTransaction(
       makeInput({
         actionType: "approve",
         unlimitedApproval: true,
@@ -48,8 +83,8 @@ describe("analyzeTransaction", () => {
     expect(result.riskScore).toBeGreaterThanOrEqual(90);
   });
 
-  it("marca transferencia simples de baixo valor como LOW", () => {
-    const result = analyzeTransaction(
+  it("marca transferencia simples de baixo valor como LOW", async () => {
+    const result = await analyzeTransaction(
       makeInput({
         actionType: "transfer",
         amount: 50,
@@ -60,8 +95,22 @@ describe("analyzeTransaction", () => {
     expect(result.reasons.join(" ")).toContain("baixo valor");
   });
 
-  it("eleva risco quando contrato e desconhecido e valor e alto", () => {
-    const result = analyzeTransaction(
+  it("eleva risco quando contrato e desconhecido e valor e alto", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (input: string | URL | Request) => {
+        const url = String(input);
+        if (url.includes("cloudflare-eth.com")) {
+          return new Response(JSON.stringify({ result: "0x" }), { status: 200 });
+        }
+        if (url.includes("dexscreener")) {
+          return new Response(JSON.stringify({ pairs: [] }), { status: 200 });
+        }
+        return new Response("{}", { status: 200 });
+      }),
+    );
+
+    const result = await analyzeTransaction(
       makeInput({
         contractAddress: "0x0000000000000000000000000000000000009876",
         amount: 20000,
