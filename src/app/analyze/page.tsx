@@ -20,8 +20,8 @@ export default function AnalyzePage() {
 
   return (
     <AppShell
-      title="Analyze Transaction"
-      description="Envie uma transacao para o endpoint interno POST /api/analyze e visualize o retorno real da API."
+      title="Analise de transações"
+      description="Analise suas transações cripto e pare de correr riscos."
     >
       <div className="grid gap-5 lg:grid-cols-2">
         <TransactionForm onSuccess={handleSuccess} />
