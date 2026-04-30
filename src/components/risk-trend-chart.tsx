@@ -15,8 +15,16 @@ interface RiskTrendChartProps {
   history: AnalysisHistoryItem[];
 }
 
+interface RiskTrendPoint {
+  index: number;
+  score: number;
+  label: string;
+  token: string;
+  riskLevel: AnalysisHistoryItem["riskLevel"];
+}
+
 export function RiskTrendChart({ history }: RiskTrendChartProps) {
-  const chartData = useMemo(() => {
+  const chartData = useMemo<RiskTrendPoint[]>(() => {
     if (history.length === 0) return [];
 
     // Pegar as ultimas 20 analises e inverter para ordem cronologica
@@ -173,22 +181,20 @@ export function RiskTrendChart({ history }: RiskTrendChartProps) {
               ticks={[0, 25, 50, 75, 100]}
             />
             <Tooltip
-              contentStyle={{
-                backgroundColor: "#1e293b",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: "12px",
-                color: "#fff",
-                fontSize: "12px",
-              }}
-              formatter={(value: number, _name: string, props) => {
-                const payload = props.payload as (typeof chartData)[0];
-                return [
-                  <span key="value">
-                    Score: <strong>{value}</strong> ({payload.riskLevel})
-                    <br />
-                    Token: {payload.token}
-                  </span>,
-                ];
+              content={({ active, payload }) => {
+                if (!active || !payload?.length) return null;
+
+                const point = payload[0].payload as RiskTrendPoint | undefined;
+                if (!point) return null;
+
+                return (
+                  <div className="rounded-xl border border-white/10 bg-slate-800 px-3 py-2 text-xs text-white shadow-xl">
+                    <p>
+                      Score: <strong>{point.score}</strong> ({point.riskLevel})
+                    </p>
+                    <p className="mt-1 text-slate-300">Token: {point.token}</p>
+                  </div>
+                );
               }}
               labelFormatter={() => ""}
             />
