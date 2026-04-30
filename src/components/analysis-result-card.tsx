@@ -1,5 +1,6 @@
 import { AnalyzeTransactionResponse } from "@/types/analysis";
 import { RiskBadge } from "@/components/risk-badge";
+import { ContractRiskHeatmap } from "@/components/contract-risk-heatmap";
 
 export function AnalysisResultCard({ result }: { result: AnalyzeTransactionResponse }) {
   const technicalDetails = result.technicalDetails ?? [];
@@ -20,6 +21,10 @@ export function AnalysisResultCard({ result }: { result: AnalyzeTransactionRespo
       <div className="mb-4 rounded-2xl border border-teal-300/20 bg-teal-300/10 p-4">
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-teal-100/80">Risk Score</p>
         <p className="mt-1 text-4xl font-black text-white">{result.riskScore}/100</p>
+      </div>
+
+      <div className="mb-4">
+        <ContractRiskHeatmap result={result} />
       </div>
 
       <div className="grid gap-3 text-sm text-slate-200 md:grid-cols-2">
