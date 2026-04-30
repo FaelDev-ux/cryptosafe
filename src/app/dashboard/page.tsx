@@ -4,6 +4,9 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { AppShell } from "@/components/app-shell";
 import { getHistory } from "@/lib/history";
+import { RiskTrendChart } from "@/components/risk-trend-chart";
+import { WalletHealthScore } from "@/components/wallet-health-score";
+import { NotificationCenter } from "@/components/notification-center";
 
 export default function DashboardPage() {
   const history = useMemo(() => getHistory(), []);
@@ -24,6 +27,10 @@ export default function DashboardPage() {
       title="Painel de risco"
       description="Acompanhe suas analises salvas e identifique rapidamente transacoes que merecem atencao."
     >
+      <section className="mb-6">
+        <NotificationCenter history={history} />
+      </section>
+
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <article className="app-panel rounded-2xl p-5">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Total</p>
@@ -45,6 +52,11 @@ export default function DashboardPage() {
           <p className="mt-3 text-4xl font-black text-teal-200">{metrics.avgScore}</p>
           <p className="mt-2 text-sm text-slate-400">score de risco</p>
         </article>
+      </section>
+
+      <section className="mt-6 grid gap-5 lg:grid-cols-2">
+        <RiskTrendChart history={history} />
+        <WalletHealthScore history={history} />
       </section>
 
       <section className="mt-6 grid gap-5 lg:grid-cols-[1.3fr_0.7fr]">
