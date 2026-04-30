@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AppShell } from "@/components/app-shell";
+import { registerLocalUser } from "@/lib/local-auth";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -18,20 +19,15 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = (await response.json()) as { error?: string };
-      if (!response.ok) {
-        setError(data.error ?? "Falha no cadastro.");
+      const result = await registerLocalUser(email, password);
+      if (!result.ok) {
+        setError(result.error);
         return;
       }
       router.push("/dashboard");
       router.refresh();
     } catch {
-      setError("Nao foi possivel conectar ao servidor.");
+      setError("Nao foi possivel salvar no armazenamento local do navegador.");
     } finally {
       setLoading(false);
     }
@@ -47,7 +43,7 @@ export default function RegisterPage() {
           <p className="text-xs uppercase tracking-[0.2em] text-teal-200/80">Novo acesso</p>
           <h2 className="mt-2 text-2xl font-black text-white">Criar conta</h2>
           <p className="mt-2 text-sm text-slate-400">
-            O cadastro do MVP fica salvo para este navegador no deploy da Vercel.
+            O cadastro fica salvo no localStorage deste navegador, sem gravar em arquivo no servidor.
           </p>
 
           <div className="mt-6 space-y-4">

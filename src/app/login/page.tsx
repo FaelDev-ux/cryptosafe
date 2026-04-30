@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AppShell } from "@/components/app-shell";
+import { loginLocalUser } from "@/lib/local-auth";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -18,20 +19,15 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = (await response.json()) as { error?: string };
-      if (!response.ok) {
-        setError(data.error ?? "Falha no login.");
+      const result = await loginLocalUser(email, password);
+      if (!result.ok) {
+        setError(result.error);
         return;
       }
       router.push("/dashboard");
       router.refresh();
     } catch {
-      setError("Nao foi possivel conectar ao servidor.");
+      setError("Nao foi possivel acessar o armazenamento local do navegador.");
     } finally {
       setLoading(false);
     }
@@ -68,7 +64,9 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className="app-panel rounded-3xl p-6 md:p-8">
           <p className="text-xs uppercase tracking-[0.2em] text-teal-200/80">Acesso seguro</p>
           <h2 className="mt-2 text-2xl font-black text-white">Entrar no painel</h2>
-          <p className="mt-2 text-sm text-slate-400">Use seu email e senha cadastrados neste navegador.</p>
+          <p className="mt-2 text-sm text-slate-400">
+            Use o email e senha salvos no localStorage deste navegador.
+          </p>
 
           <div className="mt-6 space-y-4">
             <label className="block space-y-1 text-sm">
