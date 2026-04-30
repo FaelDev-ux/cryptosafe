@@ -40,12 +40,15 @@ export default function RegisterPage() {
   return (
     <AppShell
       title="Cadastro"
-      description="Crie uma conta simples para acessar o painel do CryptoSafe."
+      description="Crie seu acesso ao CryptoSafe."
     >
-      <section className="mx-auto w-full max-w-md">
-        <form onSubmit={handleSubmit} className="premium-card rounded-2xl p-6">
-          <p className="text-xs uppercase tracking-[0.2em] text-cyan-300/70">Novo usuario</p>
-          <h2 className="mt-2 text-2xl font-semibold text-white">Criar conta</h2>
+      <section className="grid min-h-[calc(100vh-7rem)] items-center gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+        <form onSubmit={handleSubmit} className="app-panel order-2 rounded-3xl p-6 md:p-8 lg:order-1">
+          <p className="text-xs uppercase tracking-[0.2em] text-teal-200/80">Novo acesso</p>
+          <h2 className="mt-2 text-2xl font-black text-white">Criar conta</h2>
+          <p className="mt-2 text-sm text-slate-400">
+            O cadastro do MVP fica salvo para este navegador no deploy da Vercel.
+          </p>
 
           <div className="mt-6 space-y-4">
             <label className="block space-y-1 text-sm">
@@ -55,7 +58,7 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 placeholder="voce@email.com"
-                className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
+                className="field"
               />
             </label>
 
@@ -66,7 +69,7 @@ export default function RegisterPage() {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
                 placeholder="********"
-                className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
+                className="field"
               />
             </label>
           </div>
@@ -80,18 +83,43 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="glow-cyan mt-6 w-full rounded-lg bg-linear-to-r from-cyan-400 via-cyan-300 to-indigo-300 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:brightness-110 disabled:opacity-70"
+            className="primary-button mt-6 w-full px-4 py-3 text-sm"
           >
             {loading ? "Criando conta..." : "Cadastrar"}
           </button>
 
           <p className="mt-4 text-center text-sm text-slate-300">
             Ja tem conta?{" "}
-            <Link href="/login" className="text-cyan-300 hover:underline">
+            <Link href="/login" className="font-semibold text-teal-200 hover:underline">
               Fazer login
             </Link>
           </p>
         </form>
+
+        <div className="order-1 max-w-2xl lg:order-2">
+          <div className="inline-flex items-center rounded-full border border-rose-300/20 bg-rose-300/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-rose-100">
+            Protecao antes da confirmacao
+          </div>
+          <h1 className="mt-5 text-4xl font-black tracking-tight text-white md:text-6xl">
+            Sua area de risco cripto.
+          </h1>
+          <p className="mt-5 max-w-xl text-base leading-7 text-slate-300">
+            Crie sua conta para analisar transacoes, salvar resultados e acompanhar sinais de
+            risco como aprovacao ilimitada, contrato desconhecido e baixa liquidez.
+          </p>
+          <div className="mt-8 app-panel rounded-3xl p-5">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Foco</p>
+                <p className="mt-2 text-lg font-black text-white">Evitar perdas</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Analise</p>
+                <p className="mt-2 text-lg font-black text-white">Score 0-100</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </AppShell>
   );

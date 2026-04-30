@@ -21,46 +21,70 @@ export default function DashboardPage() {
 
   return (
     <AppShell
-      title="Dashboard"
-      description="Visao geral das analises salvas localmente para acompanhamento rapido."
+      title="Painel de risco"
+      description="Acompanhe suas analises salvas e identifique rapidamente transacoes que merecem atencao."
     >
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <article className="premium-card rounded-2xl p-5">
-          <p className="text-sm text-slate-300">Total de analises</p>
-          <p className="mt-2 text-3xl font-semibold text-white">{metrics.total}</p>
+        <article className="app-panel rounded-2xl p-5">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Total</p>
+          <p className="mt-3 text-4xl font-black text-white">{metrics.total}</p>
+          <p className="mt-2 text-sm text-slate-400">analises salvas</p>
         </article>
-        <article className="premium-card rounded-2xl p-5">
-          <p className="text-sm text-slate-300">Casos CRITICAL</p>
-          <p className="mt-2 text-3xl font-semibold text-rose-300">{metrics.critical}</p>
+        <article className="app-panel rounded-2xl p-5">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Critico</p>
+          <p className="mt-3 text-4xl font-black text-rose-200">{metrics.critical}</p>
+          <p className="mt-2 text-sm text-slate-400">bloqueio recomendado</p>
         </article>
-        <article className="premium-card rounded-2xl p-5">
-          <p className="text-sm text-slate-300">Casos HIGH</p>
-          <p className="mt-2 text-3xl font-semibold text-orange-300">{metrics.high}</p>
+        <article className="app-panel rounded-2xl p-5">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Alto</p>
+          <p className="mt-3 text-4xl font-black text-orange-200">{metrics.high}</p>
+          <p className="mt-2 text-sm text-slate-400">revisao manual</p>
         </article>
-        <article className="premium-card rounded-2xl p-5">
-          <p className="text-sm text-slate-300">Score medio</p>
-          <p className="mt-2 text-3xl font-semibold text-cyan-300">{metrics.avgScore}</p>
+        <article className="app-panel rounded-2xl p-5">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Media</p>
+          <p className="mt-3 text-4xl font-black text-teal-200">{metrics.avgScore}</p>
+          <p className="mt-2 text-sm text-slate-400">score de risco</p>
         </article>
       </section>
 
-      <section className="premium-card mt-6 rounded-2xl p-5 text-sm text-slate-300">
-        {metrics.total === 0 ? (
-          <>
-            Ainda nao ha analises no historico.{" "}
-            <Link href="/analyze" className="text-cyan-300 hover:underline">
-              Fazer primeira analise
-            </Link>
-            .
-          </>
-        ) : (
-          <>
-            Voce pode revisar resultados detalhados em{" "}
-            <Link href="/history" className="text-cyan-300 hover:underline">
-              History
-            </Link>
-            .
-          </>
-        )}
+      <section className="mt-6 grid gap-5 lg:grid-cols-[1.3fr_0.7fr]">
+        <div className="app-panel rounded-3xl p-6">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-teal-200/80">
+            Proxima acao
+          </p>
+          <h2 className="mt-3 text-2xl font-black text-white">
+            {metrics.total === 0 ? "Comece com uma analise" : "Revise seus resultados"}
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
+            {metrics.total === 0
+              ? "Envie contrato, token, valor e tipo de acao para receber um score com motivos tecnicos."
+              : "Abra o historico para comparar riscos, filtrar casos criticos e exportar seus registros."}
+          </p>
+          <Link
+            href={metrics.total === 0 ? "/analyze" : "/history"}
+            className="primary-button mt-5 inline-flex px-5 py-3 text-sm"
+          >
+            {metrics.total === 0 ? "Fazer primeira analise" : "Abrir historico"}
+          </Link>
+        </div>
+
+        <div className="app-panel rounded-3xl p-6">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Status</p>
+          <div className="mt-4 space-y-3 text-sm text-slate-300">
+            <p className="flex items-center justify-between border-b border-white/10 pb-3">
+              <span>Armazenamento</span>
+              <span className="font-semibold text-teal-200">local</span>
+            </p>
+            <p className="flex items-center justify-between border-b border-white/10 pb-3">
+              <span>Modelo de risco</span>
+              <span className="font-semibold text-teal-200">ativo</span>
+            </p>
+            <p className="flex items-center justify-between">
+              <span>API on-chain</span>
+              <span className="font-semibold text-teal-200">online</span>
+            </p>
+          </div>
+        </div>
       </section>
     </AppShell>
   );

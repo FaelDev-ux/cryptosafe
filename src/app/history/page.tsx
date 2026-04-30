@@ -46,20 +46,20 @@ export default function HistoryPage() {
 
   return (
     <AppShell
-      title="Analysis History"
-      description="Busque, filtre e gerencie as analises armazenadas no localStorage."
+      title="Historico de analises"
+      description="Busque, filtre, exporte e revise as transacoes que voce ja avaliou."
     >
-      <section className="premium-card mb-4 grid gap-3 rounded-2xl p-4 md:grid-cols-[1fr_auto_auto_auto_auto]">
+      <section className="app-panel mb-4 grid gap-3 rounded-3xl p-4 md:grid-cols-[1fr_auto_auto_auto_auto]">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Buscar por contrato, token ou acao"
-          className="w-full rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
+          className="field text-sm"
         />
         <select
           value={riskFilter}
           onChange={(e) => setRiskFilter(e.target.value as RiskLevel | "ALL")}
-          className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
+          className="field text-sm"
         >
           {riskOptions.map((risk) => (
             <option key={risk} value={risk}>
@@ -72,7 +72,7 @@ export default function HistoryPage() {
             clearHistory();
             setHistory([]);
           }}
-          className="rounded-lg border border-rose-500/30 px-3 py-2 text-sm text-rose-200 transition hover:bg-rose-500/10"
+          className="rounded-xl border border-rose-300/30 px-3 py-2 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/10"
         >
           Limpar tudo
         </button>
@@ -84,7 +84,7 @@ export default function HistoryPage() {
               "application/json;charset=utf-8",
             )
           }
-          className="rounded-lg border border-cyan-500/30 px-3 py-2 text-sm text-cyan-200 transition hover:bg-cyan-500/10"
+          className="rounded-xl border border-teal-300/30 px-3 py-2 text-sm font-semibold text-teal-100 transition hover:bg-teal-300/10"
         >
           Exportar JSON
         </button>
@@ -96,7 +96,7 @@ export default function HistoryPage() {
               "text/csv;charset=utf-8",
             )
           }
-          className="rounded-lg border border-indigo-500/30 px-3 py-2 text-sm text-indigo-200 transition hover:bg-indigo-500/10"
+          className="rounded-xl border border-slate-300/20 px-3 py-2 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
         >
           Exportar CSV
         </button>

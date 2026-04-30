@@ -40,12 +40,35 @@ export default function LoginPage() {
   return (
     <AppShell
       title="Login"
-      description="Tela simples de autenticacao para o MVP com email, senha e botao de acesso."
+      description="Acesse seu painel de analise de risco."
     >
-      <section className="mx-auto w-full max-w-md">
-        <form onSubmit={handleSubmit} className="premium-card rounded-2xl p-6">
-          <p className="text-xs uppercase tracking-[0.2em] text-cyan-300/70">Acesso ao sistema</p>
-          <h2 className="mt-2 text-2xl font-semibold text-white">Entrar na conta</h2>
+      <section className="grid min-h-[calc(100vh-7rem)] items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="max-w-2xl">
+          <div className="inline-flex items-center rounded-full border border-teal-300/20 bg-teal-300/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-teal-200">
+            CryptoSafe Console
+          </div>
+          <h1 className="mt-5 text-4xl font-black tracking-tight text-white md:text-6xl">
+            Analise antes de assinar.
+          </h1>
+          <p className="mt-5 max-w-xl text-base leading-7 text-slate-300">
+            Entre para revisar contratos, aprovacoes e historico de risco em um painel direto,
+            feito para evitar decisoes perigosas em transacoes cripto.
+          </p>
+
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {["Score claro", "Sinais on-chain", "Historico local"].map((item) => (
+              <div key={item} className="app-panel rounded-2xl p-4">
+                <div className="mb-3 h-1.5 w-10 rounded-full bg-teal-300" />
+                <p className="text-sm font-bold text-white">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="app-panel rounded-3xl p-6 md:p-8">
+          <p className="text-xs uppercase tracking-[0.2em] text-teal-200/80">Acesso seguro</p>
+          <h2 className="mt-2 text-2xl font-black text-white">Entrar no painel</h2>
+          <p className="mt-2 text-sm text-slate-400">Use seu email e senha cadastrados neste navegador.</p>
 
           <div className="mt-6 space-y-4">
             <label className="block space-y-1 text-sm">
@@ -55,7 +78,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 placeholder="voce@email.com"
-                className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
+                className="field"
               />
             </label>
 
@@ -66,7 +89,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
                 placeholder="********"
-                className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
+                className="field"
               />
             </label>
           </div>
@@ -80,14 +103,14 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="glow-cyan mt-6 w-full rounded-lg bg-linear-to-r from-cyan-400 via-cyan-300 to-indigo-300 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:brightness-110"
+            className="primary-button mt-6 w-full px-4 py-3 text-sm"
           >
             {loading ? "Entrando..." : "Login"}
           </button>
 
           <p className="mt-4 text-center text-sm text-slate-300">
             Nao tem conta?{" "}
-            <Link href="/register" className="text-cyan-300 hover:underline">
+            <Link href="/register" className="font-semibold text-teal-200 hover:underline">
               Criar cadastro
             </Link>
           </p>

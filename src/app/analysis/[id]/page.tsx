@@ -17,15 +17,15 @@ export default function AnalysisDetailsPage() {
 
   return (
     <AppShell
-      title="Analysis Details"
-      description="Detalhes completos de uma analise salva no historico."
+      title="Detalhes da analise"
+      description="Revise o score, os motivos tecnicos e os sinais on-chain salvos no historico."
     >
       {item ? (
         <AnalysisResultCard result={item} />
       ) : (
-        <div className="premium-card rounded-2xl p-5 text-sm text-slate-300">
+        <div className="app-panel rounded-3xl p-5 text-sm text-slate-300">
           Analise nao encontrada no armazenamento local.{" "}
-          <Link href="/history" className="text-cyan-300 hover:underline">
+          <Link href="/history" className="font-semibold text-teal-200 hover:underline">
             Voltar ao historico
           </Link>
           .

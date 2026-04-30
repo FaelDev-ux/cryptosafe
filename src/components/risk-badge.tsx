@@ -1,10 +1,10 @@
 import { RiskLevel } from "@/types/analysis";
 
 const stylesByRisk: Record<RiskLevel, string> = {
-  LOW: "bg-emerald-500/20 text-emerald-200 border-emerald-400/40 shadow-[0_0_20px_rgba(16,185,129,0.2)]",
-  MEDIUM: "bg-amber-500/20 text-amber-200 border-amber-400/40 shadow-[0_0_20px_rgba(245,158,11,0.2)]",
-  HIGH: "bg-orange-500/20 text-orange-200 border-orange-400/40 shadow-[0_0_20px_rgba(249,115,22,0.2)]",
-  CRITICAL: "bg-rose-500/20 text-rose-100 border-rose-400/50 shadow-[0_0_22px_rgba(244,63,94,0.25)]",
+  LOW: "bg-emerald-400/15 text-emerald-100 border-emerald-300/35",
+  MEDIUM: "bg-amber-400/15 text-amber-100 border-amber-300/35",
+  HIGH: "bg-orange-400/15 text-orange-100 border-orange-300/35",
+  CRITICAL: "bg-rose-400/15 text-rose-100 border-rose-300/40",
 };
 
 export function RiskBadge({ risk }: { risk: RiskLevel }) {

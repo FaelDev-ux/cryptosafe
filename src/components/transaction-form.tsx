@@ -52,10 +52,11 @@ export function TransactionForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="premium-card space-y-5 rounded-2xl p-6">
+    <form onSubmit={handleSubmit} className="app-panel space-y-5 rounded-3xl p-6">
       <div>
-        <p className="text-xs uppercase tracking-[0.2em] text-cyan-300/80">Transaction Scanner</p>
-        <h2 className="mt-1 text-xl font-semibold text-white">Enviar transacao para analise</h2>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-teal-200/80">Scanner</p>
+        <h2 className="mt-1 text-2xl font-black text-white">Nova analise</h2>
+        <p className="mt-2 text-sm text-slate-400">Preencha os dados antes de confirmar a operacao.</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -65,7 +66,7 @@ export function TransactionForm({
             required
             value={formData.contractAddress}
             onChange={(e) => setFormData((prev) => ({ ...prev, contractAddress: e.target.value }))}
-            className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
+            className="field"
             placeholder="0x..."
           />
         </label>
@@ -81,7 +82,7 @@ export function TransactionForm({
                 actionType: e.target.value as AnalyzeTransactionInput["actionType"],
               }))
             }
-            className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
+            className="field"
           >
             <option value="transfer">transfer</option>
             <option value="approve">approve</option>
@@ -99,7 +100,7 @@ export function TransactionForm({
             step="any"
             value={formData.amount || ""}
             onChange={(e) => setFormData((prev) => ({ ...prev, amount: Number(e.target.value) }))}
-            className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
+            className="field"
             placeholder="100"
           />
         </label>
@@ -110,20 +111,20 @@ export function TransactionForm({
             required
             value={formData.tokenName}
             onChange={(e) => setFormData((prev) => ({ ...prev, tokenName: e.target.value }))}
-            className="w-full rounded-lg border border-slate-700/70 bg-slate-950/80 px-3 py-2.5 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
+            className="field"
             placeholder="USDT"
           />
         </label>
       </div>
 
-      <label className="flex items-center gap-2 rounded-lg border border-slate-700/70 bg-slate-950/60 px-3 py-2 text-sm text-slate-300">
+      <label className="flex items-center gap-3 rounded-2xl border border-rose-300/20 bg-rose-400/10 px-4 py-3 text-sm text-slate-300">
         <input
           type="checkbox"
           checked={formData.unlimitedApproval}
           onChange={(e) => setFormData((prev) => ({ ...prev, unlimitedApproval: e.target.checked }))}
-          className="h-4 w-4 rounded border-slate-700 bg-slate-950 accent-cyan-400"
+          className="h-4 w-4 rounded border-slate-700 bg-slate-950 accent-rose-300"
         />
-        Unlimited approval
+        Aprovacao ilimitada
       </label>
 
       {errorMessage ? (
@@ -133,7 +134,7 @@ export function TransactionForm({
       <button
         disabled={loading}
         type="submit"
-        className="glow-cyan w-full rounded-lg bg-gradient-to-r from-cyan-400 via-cyan-300 to-indigo-300 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+        className="primary-button w-full px-4 py-3 text-sm"
       >
         {loading ? "Analisando..." : "Analisar transacao"}
       </button>

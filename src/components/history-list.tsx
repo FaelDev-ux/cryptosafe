@@ -13,7 +13,7 @@ export function HistoryList({
 }) {
   if (items.length === 0) {
     return (
-      <div className="premium-card rounded-2xl p-6 text-sm text-slate-300">
+      <div className="app-panel rounded-3xl p-6 text-sm text-slate-300">
         Nenhuma analise encontrada com os filtros atuais.
       </div>
     );
@@ -24,7 +24,7 @@ export function HistoryList({
       {items.map((item) => (
         <article
           key={item.id}
-          className="premium-card flex flex-col gap-3 rounded-2xl p-4 md:flex-row md:items-center md:justify-between"
+          className="app-panel flex flex-col gap-3 rounded-3xl p-4 md:flex-row md:items-center md:justify-between"
         >
           <div className="space-y-2">
             <div className="flex items-center gap-2">
@@ -39,13 +39,13 @@ export function HistoryList({
           <div className="flex gap-2">
             <Link
               href={`/analysis/${item.id}`}
-              className="rounded-lg border border-cyan-500/40 px-3 py-1.5 text-xs text-cyan-100 transition hover:bg-cyan-500/15"
+              className="rounded-xl border border-teal-300/30 px-3 py-1.5 text-xs font-semibold text-teal-100 transition hover:bg-teal-300/10"
             >
               Ver detalhes
             </Link>
             <button
               onClick={() => onDelete(item.id)}
-              className="rounded-lg border border-rose-500/30 px-3 py-1.5 text-xs text-rose-200 transition hover:bg-rose-500/15"
+              className="rounded-xl border border-rose-300/30 px-3 py-1.5 text-xs font-semibold text-rose-100 transition hover:bg-rose-400/10"
             >
               Excluir
             </button>
