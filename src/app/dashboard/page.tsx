@@ -7,6 +7,7 @@ import { getHistory } from "@/lib/history";
 import { RiskTrendChart } from "@/components/risk-trend-chart";
 import { WalletHealthScore } from "@/components/wallet-health-score";
 import { NotificationCenter } from "@/components/notification-center";
+import { WhatsNewPopup } from "@/components/whats-new-popup";
 
 export default function DashboardPage() {
   const history = useMemo(() => getHistory(), []);
@@ -27,6 +28,8 @@ export default function DashboardPage() {
       title="Painel de risco"
       description="Acompanhe suas analises salvas e identifique rapidamente transacoes que merecem atencao."
     >
+      <WhatsNewPopup />
+
       <section className="mb-6">
         <NotificationCenter history={history} />
       </section>
