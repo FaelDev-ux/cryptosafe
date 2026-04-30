@@ -1,5 +1,8 @@
 import { AnalyzeTransactionResponse } from "@/types/analysis";
 import { RiskBadge } from "@/components/risk-badge";
+import { ContractRiskHeatmap } from "@/components/contract-risk-heatmap";
+import { HumanReadableTransaction } from "@/components/human-readable-transaction";
+import { ContractExplorerLinks } from "@/components/etherscan-link";
 
 export function AnalysisResultCard({ result }: { result: AnalyzeTransactionResponse }) {
   const technicalDetails = result.technicalDetails ?? [];
@@ -22,6 +25,14 @@ export function AnalysisResultCard({ result }: { result: AnalyzeTransactionRespo
         <p className="mt-1 text-4xl font-black text-white">{result.riskScore}/100</p>
       </div>
 
+      <div className="mb-4">
+        <ContractRiskHeatmap result={result} />
+      </div>
+
+      <div className="mb-4">
+        <HumanReadableTransaction result={result} />
+      </div>
+
       <div className="grid gap-3 text-sm text-slate-200 md:grid-cols-2">
         <p className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
           <span className="text-slate-400">Token:</span> {result.submittedData.tokenName}
@@ -35,6 +46,10 @@ export function AnalysisResultCard({ result }: { result: AnalyzeTransactionRespo
         <p className="rounded-2xl border border-white/10 bg-white/[0.03] p-3 md:col-span-2">
           <span className="text-slate-400">Contrato:</span> {result.submittedData.contractAddress}
         </p>
+      </div>
+
+      <div className="mt-4">
+        <ContractExplorerLinks contractAddress={result.submittedData.contractAddress} />
       </div>
 
       <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
