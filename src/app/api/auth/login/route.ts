@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { loginUser } from "@/lib/auth";
+import { readUsersCookie, USERS_COOKIE } from "@/lib/auth-cookies";
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,7 +15,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await loginUser(email, password);
+    const cookieUsers = readUsersCookie(request.cookies.get(USERS_COOKIE)?.value);
+    const result = await loginUser(email, password, cookieUsers);
     if (!result.ok) {
       return NextResponse.json({ error: result.error }, { status: 401 });
     }

@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { registerUser } from "@/lib/auth";
+import {
+  createUsersCookieValue,
+  readUsersCookie,
+  USERS_COOKIE,
+  usersCookieOptions,
+} from "@/lib/auth-cookies";
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,7 +20,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await registerUser(email, password);
+    const cookieUsers = readUsersCookie(request.cookies.get(USERS_COOKIE)?.value);
+    const result = await registerUser(email, password, cookieUsers);
     if (!result.ok) {
       return NextResponse.json({ error: result.error }, { status: 400 });
     }
@@ -26,6 +33,11 @@ export async function POST(request: NextRequest) {
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     });
+    response.cookies.set(
+      USERS_COOKIE,
+      createUsersCookieValue([...cookieUsers, result.user]),
+      usersCookieOptions,
+    );
     return response;
   } catch {
     return NextResponse.json({ error: "Falha ao cadastrar usuario." }, { status: 400 });
